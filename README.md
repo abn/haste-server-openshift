@@ -1,7 +1,7 @@
 Hastebin server on OpenShift
 ============================
 
-OpenShift deployment for haste-server (http://hastebin.com/)
+OpenShift deployment for [haste-server](https://github.com/seejohnrun/haste-server).
 
 Cartridge Dependencies
 ----------------------
