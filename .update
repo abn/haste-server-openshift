@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+source ${OPENSHIFT_REPO_DIR}/.hasterc
+
+echo "Fetching updates ..."
+cd ${HASTEBIN_DIR}
+git pull --rebase origin ${HASTEBIN_BRANCH}
+
+MODULES_DIR=${OPENSHIFT_REPO_DIR}/npm_modules
+MODULES_BAK=${OPENSHIFT_REPO_DIR}/.npm_modules
+
+[ -d ${MODULES_DIR} ] \
+    && MODULES_INSTALLED=true \
+    && echo "Back up exisiting modules ..." \
+    && mv ${MODULES_DIR} ${MODULES_BAK}
+
+echo "Applying updated files ..."
+rm -rf ${OPENSHIFT_REPO_DIR}/*
+cp -R ${HASTEBIN_DIR}/* ${OPENSHIFT_REPO_DIR}/.
+
+[ -d ${MODULES_BAK} ] \
+    && echo "Restoring module back ups ... " \
+    && mv ${MODULES_BAK} ${MODULES_DIR}
+
+[ -z $MODULES_INSTALLED ] \
+    && echo "Installing node modules ..." \
+    && cd ${OPENSHIFT_REPO_DIR} \
+    && npm install
+
+${OPENSHIFT_REPO_DIR}/.configure

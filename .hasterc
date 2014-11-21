@@ -1,0 +1,4 @@
+HASTEBIN_REPO="https://github.com/abn/haste-server.git"
+HASTEBIN_DIR="${OPENSHIFT_DATA_DIR}/hastebin-server"
+HASTEBIN_BRANCH="redis-auth"
+

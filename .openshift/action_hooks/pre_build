@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# hack to get supervisord working one nodejs010 cart
+NODE_ENV=${OPENSHIFT_NODEJS_DIR}/configuration/node.env
+
+if [ -f "${NODE_ENV}" ]; then
+    # hack to ensure supervisor d does not watch static dir
+    grep -m 1 "OPENSHIFT_NODEJS_POLL_INTERVAL" ${NODE_ENV} > /dev/null 2>&1 \
+        || echo "OPENSHIFT_NODEJS_POLL_INTERVAL=\"1000 --ignore ./static/\"" \
+        >> ${NODE_ENV}
+fi
+
+source ${OPENSHIFT_REPO_DIR}/.hasterc
+
+# fetch application
+echo "Cloning haste-server branch ${HASTEBIN_BRANCH} ..."
+
+rm -rf ${HASTEBIN_DIR}
+git clone ${HASTEBIN_REPO} ${HASTEBIN_DIR}
+cd ${HASTEBIN_DIR}
+git checkout ${HASTEBIN_BRANCH}
+${OPENSHIFT_REPO_DIR}/.update
