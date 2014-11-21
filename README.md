@@ -11,7 +11,7 @@ Cartridge Dependencies
 Quick deploy command
 --------------------
 ```sh
-itos app create --scaling hastebintest \
+rhc app create --scaling hastebintest \
   nodejs-0.10 \
   "http://cartreflect-claytondev.rhcloud.com/reflect?github=smarterclayton/openshift-redis-cart" \
   --from-code git://github.com/abn/haste-server-openshift.git
