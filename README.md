@@ -19,5 +19,8 @@ rhc app create --scaling hastebin \
 
 Configuration
 -------------
-_*.hasterc*_: This file contains configuration for haste-server repository to use along with the branch.
-_*.configure*_: This python script allows you to modify both the _config.js_ and _package.json_ files used by haste.
+#### _*.hasterc*_
+This file contains configuration for haste-server repository to use along with the branch and is sourced in the action hooks.
+
+####_*.configure*_
+This python script allows you to modify both the _config.js_ and _package.json_ files used by haste. This is run both pre-build and pre-start as part of _.update_.
